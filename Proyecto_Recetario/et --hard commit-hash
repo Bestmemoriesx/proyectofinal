@@ -1,0 +1,17 @@
+[33m630fe05[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m HEAD@{0}: reset: moving to HEAD
+[33m630fe05[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m HEAD@{1}: reset: moving to HEAD
+[33m630fe05[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m HEAD@{2}: reset: moving to HEAD
+[33m630fe05[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m HEAD@{3}: reset: moving to HEAD
+[33m630fe05[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m HEAD@{4}: reset: moving to 630fe05d60dbb85ff3389df75453c4a054ed46f9
+[33m1b0e892[m HEAD@{5}: reset: moving to HEAD
+[33m1b0e892[m HEAD@{6}: reset: moving to HEAD
+[33m1b0e892[m HEAD@{7}: reset: moving to HEAD
+[33m1b0e892[m HEAD@{8}: reset: moving to HEAD
+[33m1b0e892[m HEAD@{9}: commit: se agrego el login al tab y se cambio paleta de colores
+[33m630fe05[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m HEAD@{10}: commit: agregando tabs
+[33m024ad6f[m HEAD@{11}: reset: moving to 024ad6f17fe01c7172cf8117d5c915d39a0d81f7
+[33md542f5b[m HEAD@{12}: commit: agregando tabs
+[33m024ad6f[m HEAD@{13}: commit (initial): 1
+[33mf98aed3[m HEAD@{15}: reset: moving to f98aed303adbf9064b93115070aef524dba82c0c
+[33m07dc722[m HEAD@{16}: commit: 1
+[33mf98aed3[m HEAD@{17}: commit (initial): Initial commit

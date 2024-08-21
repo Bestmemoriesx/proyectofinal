@@ -1,0 +1,138 @@
+use proyectobd
+
+CREATE TABLE Rol (
+    rol_id INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(50) UNIQUE NOT NULL
+);
+select * from producto;
+
+INSERT INTO Rol (rol_id, nombre) VALUES
+(4, 'SuperAdmin'),
+(5, 'Admin'),
+(6, 'Moderator');
+
+-- Tabla: administrador
+CREATE TABLE administrador (
+    admin_id INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(50),
+    apellido VARCHAR(50),
+    correo VARCHAR(100) UNIQUE NOT NULL,
+    rol_id INT,
+    FOREIGN KEY (rol_id) REFERENCES Rol(rol_id)
+);
+
+INSERT INTO administrador (admin_id, nombre, apellido, correo, rol_id) VALUES
+(1, 'Pedro', 'García', 'pedro.garcia@example.com', 4),
+(2, 'Lucía', 'Hernández', 'lucia.hernandez@example.com', 5),
+(3, 'Miguel', 'Rodríguez', 'miguel.rodriguez@example.com', 5),
+(4, 'Sara', 'Jiménez', 'sara.jimenez@example.com', 6),
+(5, 'David', 'Sánchez', 'david.sanchez@example.com', 6);
+
+-- Tabla: cliente
+CREATE TABLE cliente (
+    cliente_id INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(50),
+    apellido VARCHAR(50),
+    telefono VARCHAR(15) NOT NULL CHECK (LENGTH(telefono) >= 10),
+    correo VARCHAR(100) UNIQUE NOT NULL,
+    contraseña VARCHAR(100) NOT NULL
+);
+
+INSERT INTO cliente (cliente_id, nombre, apellido, telefono, correo, contraseña) VALUES
+(1, 'Juan', 'Pérez', '1234567890', 'juan.perez@example.com', 'password123'),
+(2, 'María', 'López', '0987654321', 'maria.lopez@example.com', 'password456'),
+(3, 'Carlos', 'Gómez', '4561237890', 'carlos.gomez@example.com', 'password789'),
+(4, 'Ana', 'Martínez', '3216549870', 'ana.martinez@example.com', 'password012'),
+(5, 'Luis', 'Fernández', '7894561230', 'luis.fernandez@example.com', 'password345');
+
+-- Tabla: productos
+CREATE TABLE productos (
+    producto_id INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(50) NOT NULL,
+    descripcion TEXT,
+    precio DECIMAL(10, 2) CHECK (precio > 0),
+    stock INT CHECK (stock >= 0),
+    imagen_url VARCHAR(255)
+);
+
+INSERT INTO productos (producto_id, nombre, descripcion, precio, stock, imagen_url) VALUES
+(1, 'Producto A', 'Descripción del producto A', 10.99, 100, 'http://example.com/imagenA.jpg'),
+(2, 'Producto B', 'Descripción del producto B', 15.49, 200, 'http://example.com/imagenB.jpg'),
+(3, 'Producto C', 'Descripción del producto C', 7.99, 150, 'http://example.com/imagenC.jpg'),
+(4, 'Producto D', 'Descripción del producto D', 12.00, 250, 'http://example.com/imagenD.jpg'),
+(5, 'Producto E', 'Descripción del producto E', 5.75, 300, 'http://example.com/imagenE.jpg');
+INSERT INTO producto (producto_id, nombre, descripcion, precio, stock, imagen_url) VALUES
+(6, 'Bebida Cola', 'Bebida gaseosa sabor cola', 2.50, 500, 'https://example.com/images/bebida_cola.jpg'),
+(7, 'Jugo de Naranja', 'Jugo natural de naranja', 3.20, 450, 'https://example.com/images/jugo_naranja.jpg'),
+(8, 'Agua Mineral', 'Agua mineral sin gas', 1.50, 600, 'https://example.com/images/agua_mineral.jpg'),
+(9, 'Limonada', 'Limonada fresca con limón', 2.75, 400, 'https://example.com/images/limonada.jpg'),
+(10, 'Té Helado', 'Té helado con sabor a durazno', 3.00, 350, 'https://example.com/images/te_helado.jpg');
+(11, 'Bebida Energética', 'Bebida energética con cafeína', 4.50, 200, 'https://example.com/images/bebida_energetica.jpg'),
+(12, 'Cerveza', 'Cerveza lager', 4.00, 250, 'https://example.com/images/cerveza.jpg'),
+(13, 'Vino Tinto', 'Vino tinto de reserva', 12.00, 150, 'https://example.com/images/vino_tinto.jpg'),
+(14, 'Jugo de Manzana', 'Jugo natural de manzana', 3.50, 300, 'https://example.com/images/jugo_manzana.jpg'),
+(15, 'Refresco de Limón', 'Refresco de limón con gas', 2.00, 500, 'https://example.com/images/refresco_limon.jpg');
+-- Tabla: orden_productos
+CREATE TABLE orden_productos (
+    orden_id INT PRIMARY KEY AUTO_INCREMENT,
+    cliente_id INT,
+    producto_id INT,
+    cantidad INT CHECK (cantidad > 0),
+    fecha DATE NOT NULL,
+    FOREIGN KEY (cliente_id) REFERENCES cliente(cliente_id),
+    FOREIGN KEY (producto_id) REFERENCES productos(producto_id)
+);
+
+INSERT INTO orden_productos (orden_id, cliente_id, producto_id, cantidad, fecha) VALUES
+(1, 1, 2, 3, '2024-07-01'),
+(2, 2, 1, 2, '2024-07-02'),
+(3, 3, 5, 1, '2024-07-03'),
+(4, 4, 3, 4, '2024-07-04'),
+(5, 5, 4, 2, '2024-07-05');
+
+-- Tabla: notificaciones
+CREATE TABLE notificaciones (
+    notificacion_id INT PRIMARY KEY AUTO_INCREMENT,
+    cliente_id INT,
+    mensaje TEXT NOT NULL,
+    fecha TIMESTAMP NOT NULL,
+    FOREIGN KEY (cliente_id) REFERENCES cliente(cliente_id)
+);
+
+INSERT INTO notificaciones (notificacion_id, cliente_id, mensaje, fecha) VALUES
+(1, 1, 'Tu orden ha sido enviada.', '2024-07-01 08:00:00'),
+(2, 2, 'Tu orden está en camino.', '2024-07-02 09:00:00'),
+(3, 3, 'Tu orden ha sido entregada.', '2024-07-03 10:00:00'),
+(4, 4, 'Gracias por tu compra.', '2024-07-04 11:00:00'),
+(5, 5, 'Tu orden ha sido cancelada.', '2024-07-05 12:00:00');
+
+-- Tabla: historial_productos
+CREATE TABLE historial_productos (
+    historial_id INT PRIMARY KEY AUTO_INCREMENT,
+    producto_id INT,
+    cambio TEXT NOT NULL,
+    fecha TIMESTAMP NOT NULL,
+    FOREIGN KEY (producto_id) REFERENCES productos(producto_id)
+);
+
+INSERT INTO historial_productos (historial_id, producto_id, cambio, fecha) VALUES
+(1, 1, 'Cambio de precio de 10.99 a 9.99', '2024-07-01 12:00:00'),
+(2, 2, 'Actualización de descripción', '2024-07-02 14:00:00');
+
+-- Tabla: historial_ordenes
+CREATE TABLE historial_ordenes (
+    historial_id INT PRIMARY KEY AUTO_INCREMENT,
+    orden_id INT,
+    estado VARCHAR(50) NOT NULL,
+    fecha TIMESTAMP NOT NULL,
+    FOREIGN KEY (orden_id) REFERENCES orden_productos(orden_id)
+);
+
+INSERT INTO historial_ordenes (historial_id, orden_id, estado, fecha) VALUES
+(1, 1, 'Orden creada', '2024-07-01 08:00:00'),
+(2, 1, 'Orden enviada', '2024-07-01 10:00:00');
+
+SELECT * FROM cliente;
+
+INSERT INTO cliente (cliente_id, nombre, apellido, telefono, correo, contraseña) VALUES
+(6, 'Juan', 'Pérez', '1234567890', 'jean', '123');
